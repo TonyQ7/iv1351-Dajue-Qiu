@@ -1,8 +1,8 @@
-# Teaching Allocation System
+# IV1351 Task 3 (Dajue Qiu Only)
 
-A command-line application for managing course layout and teaching allocation, developed for IV1351 Data Storage Paradigms Task 3.
+A command-line application for managing course layout and teaching allocation.
 
-## Prerequisites
+## To run, you need:
 
 - Java 14 or higher
 - Maven 3.6+
@@ -26,7 +26,7 @@ A command-line application for managing course layout and teaching allocation, d
    \i src/main/resources/Seed.sql
    ```
 
-## Building and Running
+## Compiling and Running
 
 ```bash
 mvn clean compile
@@ -49,6 +49,20 @@ mvn exec:java
 | `newactivity <name> <factor>` | Create new teaching activity |
 | `associate <instance_id> <activity_id> <hours>` | Add planned activity |
 
+# Commands I used to generate the sample printout in my report:
+list instances 2025
+cost 2025-50001
+increase 2025-50001 100
+cost 2025-50001
+list activities
+newactivity Exercise 2.0
+list activities
+associate 2025-50001 8 30
+allocate 6 2025-50001 8 60
+showactivity Exercise
+allocate 1 2025-50413 1 10
+quit
+
 ## Architecture
 
 This project follows the MVC + Layer pattern:
@@ -61,4 +75,4 @@ This project follows the MVC + Layer pattern:
 
 ## Author
 
-Dajue Qiu - IV1351 Task 3 Higher Grade Part B
+Dajue Qiu
