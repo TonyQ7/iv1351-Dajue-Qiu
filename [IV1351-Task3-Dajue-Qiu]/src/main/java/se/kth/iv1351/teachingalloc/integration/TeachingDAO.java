@@ -74,6 +74,7 @@ public class TeachingDAO {
     private PreparedStatement createPlannedActivityStmt;
     private PreparedStatement readLatestSalaryVersionStmt;
     private PreparedStatement readAllocationLimitStmt;
+    private PreparedStatement lockEmployeeStmt;
 
     /**
      * Constructs a new DAO object connected to the teaching database.
@@ -792,6 +793,35 @@ public class TeachingDAO {
         // Read allocation limit from database
         readAllocationLimitStmt = connection.prepareStatement(
                 "SELECT max_instances_per_period FROM dsp.allocation_rule LIMIT 1");
+
+        // Lock employee row for serializing allocation operations
+        lockEmployeeStmt = connection.prepareStatement(
+                "SELECT employee_id FROM dsp.employee WHERE employee_id = ? FOR NO KEY UPDATE");
+    }
+
+    /**
+     * Locks the specified employee row to serialize allocation operations.
+     * This prevents phantom reads when checking allocation limits.
+     * Must be called BEFORE reading allocation counts.
+     *
+     * @param employeeId The employee ID to lock.
+     * @throws TeachingDBException If failed to lock or employee not found.
+     */
+    public void lockEmployee(int employeeId) throws TeachingDBException {
+        String failureMsg = "Could not lock employee: " + employeeId;
+        ResultSet result = null;
+        try {
+            lockEmployeeStmt.setInt(1, employeeId);
+            result = lockEmployeeStmt.executeQuery();
+            if (!result.next()) {
+                throw new TeachingDBException("Employee not found: " + employeeId);
+            }
+            // Lock acquired, no commit - held until transaction completes
+        } catch (SQLException sqle) {
+            handleException(failureMsg, sqle);
+        } finally {
+            closeResultSet(failureMsg, result);
+        }
     }
 
     private CourseInstance createCourseInstanceFromResultSet(ResultSet result) throws SQLException {
