@@ -235,7 +235,13 @@ public class Controller {
         String failureMsg = "Could not allocate teaching for employee " + employeeId;
 
         try {
-            // 1. Read the course instance to get period/year (with lock for update)
+            // 1. LOCK THE EMPLOYEE FIRST (Critical for Task B concurrency)
+            // This serializes all allocation attempts for this specific employee,
+            // preventing phantom reads when two transactions try to allocate
+            // the same employee to different courses simultaneously.
+            teachingDb.lockEmployee(employeeId);
+
+            // 2. Read the course instance to get period/year (with lock for update)
             CourseInstance instance = teachingDb.readCourseInstanceById(instanceId, true);
             if (instance == null) {
                 throw new TeachingException("Course instance not found: " + instanceId);
