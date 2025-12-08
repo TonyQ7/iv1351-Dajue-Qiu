@@ -27,11 +27,14 @@ A command-line application for managing course layout and teaching allocation.
    ```
 
 ## Compiling and Running
-
-```bash
-mvn clean compile
-mvn exec:java
-```
+Note: You need to run:
+\begin{verbatim}
+Set-Location -LiteralPath '.\.\[IV1351-Task3-Dajue-Qiu]'
+\end{verbatim}
+to set the path before running:
+\begin{verbatim}
+mvn clean compile exec:java
+\end{verbatim}
 
 ## Available Commands
 
