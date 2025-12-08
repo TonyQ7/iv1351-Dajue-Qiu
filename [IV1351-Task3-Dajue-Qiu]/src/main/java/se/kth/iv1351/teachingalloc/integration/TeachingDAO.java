@@ -1,26 +1,3 @@
-/*
- * The MIT License (MIT)
- * Copyright (c) 2024 Dajue Qiu
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
 package se.kth.iv1351.teachingalloc.integration;
 
 import java.sql.Connection;
@@ -94,9 +71,6 @@ public class TeachingDAO {
 
     /**
      * Reads all existing course instances.
-     *
-     * @return A list with all existing course instances.
-     * @throws TeachingDBException If failed to read.
      */
     public List<CourseInstance> readAllCourseInstances() throws TeachingDBException {
         String failureMsg = "Could not list course instances.";
@@ -114,10 +88,6 @@ public class TeachingDAO {
 
     /**
      * Reads course instances for a specific study year.
-     *
-     * @param year The study year.
-     * @return A list of course instances for that year.
-     * @throws TeachingDBException If failed to read.
      */
     public List<CourseInstance> readCourseInstancesByYear(int year) throws TeachingDBException {
         String failureMsg = "Could not list course instances for year " + year;
@@ -140,11 +110,6 @@ public class TeachingDAO {
 
     /**
      * Reads a course instance by ID.
-     *
-     * @param instanceId    The instance ID.
-     * @param lockExclusive If true, acquires FOR NO KEY UPDATE lock.
-     * @return The course instance, or null if not found.
-     * @throws TeachingDBException If failed to read.
      */
     public CourseInstance readCourseInstanceById(String instanceId, boolean lockExclusive)
             throws TeachingDBException {
@@ -171,10 +136,6 @@ public class TeachingDAO {
     /**
      * Reads the total planned hours for a course instance.
      * Returns RAW data - no business logic calculation here.
-     *
-     * @param instanceId The course instance ID.
-     * @return The total effective hours from planned activities.
-     * @throws TeachingDBException If failed to read.
      */
     public BigDecimal readPlannedHoursByInstance(String instanceId) throws TeachingDBException {
         String failureMsg = "Could not read planned hours.";
@@ -198,10 +159,6 @@ public class TeachingDAO {
     /**
      * Reads the total actual cost for a course instance from allocations.
      * Returns RAW data from the view.
-     *
-     * @param instanceId The course instance ID.
-     * @return The total cost (in SEK, not KSEK - Controller converts).
-     * @throws TeachingDBException If failed to read.
      */
     public BigDecimal readActualCostByInstance(String instanceId) throws TeachingDBException {
         String failureMsg = "Could not read actual cost.";
@@ -226,12 +183,6 @@ public class TeachingDAO {
      * Reads the count of distinct course instances an employee is allocated to
      * in a specific period and year. Uses FOR UPDATE to lock rows for the limit
      * check.
-     *
-     * @param employeeId The employee ID.
-     * @param period     The study period (e.g., "P1").
-     * @param year       The study year.
-     * @return The count of distinct active (non-terminated) course instances.
-     * @throws TeachingDBException If failed to read.
      */
     public int readAllocationCountByEmployeePeriod(int employeeId, String period, int year)
             throws TeachingDBException {
@@ -256,12 +207,6 @@ public class TeachingDAO {
 
     /**
      * Reads allocations for a specific employee in a period.
-     *
-     * @param employeeId The employee ID.
-     * @param period     The study period.
-     * @param year       The study year.
-     * @return List of active (non-terminated) allocations.
-     * @throws TeachingDBException If failed to read.
      */
     public List<TeachingAllocation> readAllocationsByEmployeePeriod(int employeeId, String period, int year)
             throws TeachingDBException {
@@ -287,10 +232,6 @@ public class TeachingDAO {
 
     /**
      * Reads all active allocations for a course instance.
-     *
-     * @param instanceId The course instance ID.
-     * @return List of active allocations.
-     * @throws TeachingDBException If failed to read.
      */
     public List<TeachingAllocation> readAllocationsByInstance(String instanceId) throws TeachingDBException {
         String failureMsg = "Could not read allocations for instance.";
@@ -313,10 +254,6 @@ public class TeachingDAO {
 
     /**
      * Reads allocations for a specific activity by name (for Task A req 4).
-     *
-     * @param activityName The activity name (e.g., "Exercise").
-     * @return A list of allocation details with extended info.
-     * @throws TeachingDBException If failed to read.
      */
     public List<ActivityAllocation> readAllocationsByActivityName(String activityName) throws TeachingDBException {
         String failureMsg = "Could not find allocations for activity: " + activityName;
@@ -347,12 +284,6 @@ public class TeachingDAO {
 
     /**
      * Reads an existing allocation (active or terminated) for reactivation check.
-     *
-     * @param employeeId The employee ID.
-     * @param instanceId The course instance ID.
-     * @param activityId The activity ID.
-     * @return The allocation if exists (may be terminated), or null.
-     * @throws TeachingDBException If failed to read.
      */
     public TeachingAllocation readExistingAllocation(int employeeId, String instanceId, int activityId)
             throws TeachingDBException {
@@ -384,9 +315,6 @@ public class TeachingDAO {
 
     /**
      * Reads all teaching activities.
-     *
-     * @return List of all teaching activities.
-     * @throws TeachingDBException If failed to read.
      */
     public List<TeachingActivity> readAllTeachingActivities() throws TeachingDBException {
         String failureMsg = "Could not list teaching activities.";
@@ -408,10 +336,6 @@ public class TeachingDAO {
 
     /**
      * Reads a teaching activity by name.
-     *
-     * @param activityName The activity name.
-     * @return The activity, or null if not found.
-     * @throws TeachingDBException If failed to read.
      */
     public TeachingActivity readActivityByName(String activityName) throws TeachingDBException {
         String failureMsg = "Could not find activity: " + activityName;
@@ -437,10 +361,6 @@ public class TeachingDAO {
 
     /**
      * Reads a teaching activity by ID.
-     *
-     * @param activityId The activity ID.
-     * @return The activity, or null if not found.
-     * @throws TeachingDBException If failed to read.
      */
     public TeachingActivity readActivityById(int activityId) throws TeachingDBException {
         String failureMsg = "Could not find activity: " + activityId;
@@ -466,10 +386,6 @@ public class TeachingDAO {
 
     /**
      * Reads the latest salary version ID for an employee.
-     *
-     * @param employeeId The employee ID.
-     * @return The salary version ID, or 0 if not found.
-     * @throws TeachingDBException If failed to read.
      */
     public int readLatestSalaryVersionByEmployee(int employeeId) throws TeachingDBException {
         String failureMsg = "Could not find salary version.";
@@ -491,9 +407,6 @@ public class TeachingDAO {
 
     /**
      * Reads the allocation limit from the allocation_rule table.
-     *
-     * @return The max instances per period, or 4 if not configured.
-     * @throws TeachingDBException If failed to read.
      */
     public int readAllocationLimit() throws TeachingDBException {
         String failureMsg = "Could not read allocation limit.";
@@ -517,9 +430,6 @@ public class TeachingDAO {
 
     /**
      * Updates the number of students for a course instance.
-     *
-     * @param instance The course instance to update.
-     * @throws TeachingDBException If unable to update.
      */
     public void updateCourseInstanceStudents(CourseInstanceDTO instance) throws TeachingDBException {
         String failureMsg = "Could not update course instance: " + instance.getInstanceId();
@@ -538,9 +448,6 @@ public class TeachingDAO {
 
     /**
      * Creates a new allocation.
-     *
-     * @param allocation The allocation to create.
-     * @throws TeachingDBException If failed to create.
      */
     public void createAllocation(TeachingAllocationDTO allocation) throws TeachingDBException {
         String failureMsg = "Could not create allocation.";
@@ -562,11 +469,6 @@ public class TeachingDAO {
 
     /**
      * Terminates an allocation (soft delete - sets is_terminated = TRUE).
-     *
-     * @param employeeId The employee ID.
-     * @param instanceId The course instance ID.
-     * @param activityId The activity ID.
-     * @throws TeachingDBException If failed to terminate.
      */
     public void terminateAllocation(int employeeId, String instanceId, int activityId)
             throws TeachingDBException {
@@ -588,13 +490,6 @@ public class TeachingDAO {
     /**
      * Reactivates a terminated allocation (sets is_terminated = FALSE with new
      * hours/salary).
-     *
-     * @param employeeId      The employee ID.
-     * @param instanceId      The course instance ID.
-     * @param activityId      The activity ID.
-     * @param salaryVersionId The new salary version ID.
-     * @param hours           The new allocated hours.
-     * @throws TeachingDBException If failed to reactivate.
      */
     public void reactivateAllocation(int employeeId, String instanceId, int activityId,
             int salaryVersionId, BigDecimal hours) throws TeachingDBException {
@@ -617,9 +512,6 @@ public class TeachingDAO {
 
     /**
      * Creates a new teaching activity.
-     *
-     * @param activity The activity to create.
-     * @throws TeachingDBException If failed to create.
      */
     public void createTeachingActivity(TeachingActivityDTO activity) throws TeachingDBException {
         String failureMsg = "Could not create teaching activity.";
@@ -639,11 +531,6 @@ public class TeachingDAO {
 
     /**
      * Creates a planned activity for a course instance.
-     *
-     * @param instanceId   The course instance ID.
-     * @param activityId   The activity ID.
-     * @param plannedHours The planned hours.
-     * @throws TeachingDBException If failed to create.
      */
     public void createPlannedActivity(String instanceId, int activityId, BigDecimal plannedHours)
             throws TeachingDBException {
@@ -664,8 +551,6 @@ public class TeachingDAO {
 
     /**
      * Commits the current transaction.
-     * 
-     * @throws TeachingDBException If unable to commit.
      */
     public void commit() throws TeachingDBException {
         try {
@@ -837,9 +722,6 @@ public class TeachingDAO {
      * Locks the specified employee row to serialize allocation operations.
      * This prevents phantom reads when checking allocation limits.
      * Must be called BEFORE reading allocation counts.
-     *
-     * @param employeeId The employee ID to lock.
-     * @throws TeachingDBException If failed to lock or employee not found.
      */
     public void lockEmployee(int employeeId) throws TeachingDBException {
         String failureMsg = "Could not lock employee: " + employeeId;
@@ -906,3 +788,4 @@ public class TeachingDAO {
         }
     }
 }
+
