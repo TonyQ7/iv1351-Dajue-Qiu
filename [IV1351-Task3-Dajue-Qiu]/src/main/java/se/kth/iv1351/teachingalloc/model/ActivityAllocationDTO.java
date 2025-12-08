@@ -1,8 +1,3 @@
-/*
- * The MIT License (MIT)
- * Copyright (c) 2024 Dajue Qiu
- */
-
 package se.kth.iv1351.teachingalloc.model;
 
 import java.math.BigDecimal;
@@ -52,3 +47,4 @@ public interface ActivityAllocationDTO {
      */
     BigDecimal getAllocatedHours();
 }
+
