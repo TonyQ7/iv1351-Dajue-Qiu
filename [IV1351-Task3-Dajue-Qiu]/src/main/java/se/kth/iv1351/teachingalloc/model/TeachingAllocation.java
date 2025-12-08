@@ -1,8 +1,3 @@
-/*
- * The MIT License (MIT)
- * Copyright (c) 2024 Dajue Qiu
- */
-
 package se.kth.iv1351.teachingalloc.model;
 
 import java.math.BigDecimal;
@@ -91,3 +86,4 @@ public class TeachingAllocation implements TeachingAllocationDTO {
                 ", terminated=" + terminated + "]";
     }
 }
+
