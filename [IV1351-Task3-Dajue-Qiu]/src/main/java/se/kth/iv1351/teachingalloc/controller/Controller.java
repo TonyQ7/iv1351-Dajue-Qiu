@@ -1,26 +1,3 @@
-/*
- * The MIT License (MIT)
- * Copyright (c) 2024 Dajue Qiu
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
 package se.kth.iv1351.teachingalloc.controller;
 
 import java.math.BigDecimal;
@@ -59,21 +36,14 @@ public class Controller {
 
     private final TeachingDAO teachingDb;
 
-    /**
-     * Creates a new instance, and retrieves a connection to the database.
-     * 
-     * @throws TeachingDBException If unable to connect to the database.
-     */
+
     public Controller() throws TeachingDBException {
         teachingDb = new TeachingDAO();
     }
 
     /**
      * Lists all course instances.
-     * 
-     * @return A list containing all course instances.
-     * @throws TeachingException If unable to retrieve course instances.
-     */
+
     public List<? extends CourseInstanceDTO> getAllCourseInstances() throws TeachingException {
         try {
             List<CourseInstance> instances = teachingDb.readAllCourseInstances();
@@ -87,10 +57,6 @@ public class Controller {
     /**
      * Lists course instances for a specific year (for Task A - current year
      * filter).
-     * 
-     * @param year The study year.
-     * @return A list containing course instances for that year.
-     * @throws TeachingException If unable to retrieve course instances.
      */
     public List<? extends CourseInstanceDTO> getCourseInstancesByYear(int year) throws TeachingException {
         try {
@@ -103,13 +69,9 @@ public class Controller {
     }
 
     /**
-     * Gets allocations for a specific activity by name (for Task A req 4 - Exercise
+     * Gets allocations for a specific activity by name (for Task A - Exercise
      * query).
      * Returns extended info including teacher name and course name.
-     * 
-     * @param activityName The activity name (e.g., "Exercise").
-     * @return A list of allocation details.
-     * @throws TeachingException If unable to retrieve allocations.
      */
     public List<? extends ActivityAllocationDTO> getAllocationsByActivityName(String activityName)
             throws TeachingException {
@@ -124,9 +86,6 @@ public class Controller {
 
     /**
      * Lists all teaching activities.
-     * 
-     * @return A list containing all teaching activities.
-     * @throws TeachingException If unable to retrieve activities.
      */
     public List<? extends TeachingActivityDTO> getAllTeachingActivities() throws TeachingException {
         try {
@@ -141,10 +100,6 @@ public class Controller {
     /**
      * Computes the teaching cost (planned and actual) for a course instance.
      * Cost calculation logic is performed HERE in the Controller, not in the DAO.
-     * 
-     * @param instanceId The course instance ID.
-     * @return A cost summary with planned and actual costs (in KSEK).
-     * @throws TeachingException If unable to compute cost.
      */
     public CostSummaryDTO computeTeachingCost(String instanceId) throws TeachingException {
         String failureMsg = "Could not compute teaching cost for: " + instanceId;
@@ -188,11 +143,6 @@ public class Controller {
 
     /**
      * Increases the number of students for a course instance.
-     * 
-     * @param instanceId The course instance ID.
-     * @param count      The number of students to add.
-     * @throws AllocationRejectedException If the count is invalid.
-     * @throws TeachingException           If failed to update.
      */
     public void increaseStudentCount(String instanceId, int count)
             throws AllocationRejectedException, TeachingException {
@@ -223,14 +173,6 @@ public class Controller {
      * Allocates teaching to an employee for a course instance activity.
      * Checks the course limit from the database before creating the allocation.
      * Handles reactivation of previously terminated allocations.
-     * 
-     * @param employeeId The employee ID.
-     * @param instanceId The course instance ID.
-     * @param activityId The teaching activity ID.
-     * @param hours      The hours to allocate.
-     * @throws AllocationRejectedException If the allocation violates business
-     *                                     rules.
-     * @throws TeachingException           If failed to allocate.
      */
     public void allocateTeaching(int employeeId, String instanceId, int activityId, BigDecimal hours)
             throws AllocationRejectedException, TeachingException {
@@ -315,11 +257,6 @@ public class Controller {
     /**
      * Deallocates teaching from an employee for a course instance activity.
      * Uses soft delete (terminates the allocation, preserving history).
-     * 
-     * @param employeeId The employee ID.
-     * @param instanceId The course instance ID.
-     * @param activityId The teaching activity ID.
-     * @throws TeachingException If failed to deallocate.
      */
     public void deallocateTeaching(int employeeId, String instanceId, int activityId)
             throws TeachingException {
@@ -335,12 +272,6 @@ public class Controller {
 
     /**
      * Lists allocations for a specific employee in a period.
-     * 
-     * @param employeeId The employee ID.
-     * @param period     The study period.
-     * @param year       The study year.
-     * @return List of active allocations.
-     * @throws TeachingException If failed to retrieve allocations.
      */
     public List<? extends TeachingAllocationDTO> getTeacherAllocations(int employeeId, String period, int year)
             throws TeachingException {
@@ -356,10 +287,6 @@ public class Controller {
 
     /**
      * Lists all allocations for a course instance.
-     * 
-     * @param instanceId The course instance ID.
-     * @return List of active allocations.
-     * @throws TeachingException If failed to retrieve allocations.
      */
     public List<? extends TeachingAllocationDTO> getInstanceAllocations(String instanceId)
             throws TeachingException {
@@ -374,10 +301,6 @@ public class Controller {
 
     /**
      * Creates a new teaching activity.
-     * 
-     * @param name   The activity name.
-     * @param factor The hour factor.
-     * @throws TeachingException If failed to create activity.
      */
     public void createTeachingActivity(String name, BigDecimal factor) throws TeachingException {
         String failureMsg = "Could not create teaching activity: " + name;
@@ -397,16 +320,6 @@ public class Controller {
     /**
      * Associates a teaching activity with a course instance (creates planned
      * activity).
-     * 
-     * BUSINESS RULE: Derived activities (e.g., Administration, Examination)
-     * cannot have planned hours - they are computed automatically from
-     * course properties.
-     * 
-     * @param instanceId   The course instance ID.
-     * @param activityId   The activity ID.
-     * @param plannedHours The planned hours.
-     * @throws TeachingException If failed to create planned activity or if
-     *                           activity is derived.
      */
     public void associateActivityWithInstance(String instanceId, int activityId, BigDecimal plannedHours)
             throws TeachingException {
@@ -431,3 +344,4 @@ public class Controller {
         }
     }
 }
+
