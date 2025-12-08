@@ -272,9 +272,8 @@ FROM v_activity_hours v
 JOIN teaching_activity ta ON ta.activity_id = v.activity_id AND ta.activity_name='Examination'
 WHERE v.course_instance_id = '2025-50001';
 
--- ===== Task A Requirement 4: Exercise activity =====
--- NOTE: 'Exercise' activity is NOT pre-seeded. It should be created live
--- via the CLI during demonstration using:
+-- ===== Task A Requirement: Exercise activity =====
+-- NOTE: 'Exercise' activity is NOT pre-seeded. It should be created live via the CLI during sample printout using:
 --   newactivity Exercise 2.0
 --   associate <instance_id> <exercise_activity_id> 30
 --   allocate <employee_id> <instance_id> <exercise_activity_id> 60
