@@ -1,8 +1,3 @@
-/*
- * The MIT License (MIT)
- * Copyright (c) 2024 Dajue Qiu
- */
-
 package se.kth.iv1351.teachingalloc.model;
 
 /**
@@ -68,9 +63,6 @@ public class CourseInstance implements CourseInstanceDTO {
 
     /**
      * Increases the number of students by the specified count.
-     *
-     * @param count The number to add.
-     * @throws AllocationRejectedException If count is negative.
      */
     public void increaseStudents(int count) throws AllocationRejectedException {
         if (count < 0) {
@@ -87,3 +79,4 @@ public class CourseInstance implements CourseInstanceDTO {
                 ", period=" + studyPeriod + ", students=" + numStudents + "]";
     }
 }
+
