@@ -49,19 +49,21 @@ mvn exec:java
 | `newactivity <name> <factor>` | Create new teaching activity |
 | `associate <instance_id> <activity_id> <hours>` | Add planned activity |
 
-# Commands I used to generate the sample printout in my report:
-list instances 2025
-cost 2025-50001
-increase 2025-50001 100
-cost 2025-50001
-list activities
-newactivity Exercise 2.0
-list activities
-associate 2025-50001 8 30
-allocate 6 2025-50001 8 60
-showactivity Exercise
-allocate 1 2025-50413 1 10
-quit
+| Command | Description |
+|---------|-------------|
+| `list instances 2025` | List all course instances for 2025 |
+| `cost 2025-50001` | Compute planned vs actual teaching cost for instance `2025-50001` |
+| `increase 2025-50001 100` | Increase student count for instance `2025-50001` by 100 |
+| `cost 2025-50001` | Re-compute planned vs actual teaching cost for instance `2025-50001` after the increase |
+| `list activities` | List all teaching activities |
+| `newactivity Exercise 2.0` | Create a new teaching activity named `Exercise` with factor `2.0` |
+| `list activities` | List all teaching activities (including the newly created one) |
+| `associate 2025-50001 8 30` | Add planned activity `8` with `30` hours to instance `2025-50001` |
+| `allocate 6 2025-50001 8 60` | Allocate employee `6` to instance `2025-50001`, activity `8`, for `60` hours |
+| `showactivity Exercise` | Show details for the teaching activity named `Exercise` |
+| `allocate 1 2025-50413 1 10` | Allocate employee `1` to instance `2025-50413`, activity `1`, for `10` hours |
+| `deallocate 6 2025-50001 8` | Remove allocation of employee `6` from instance `2025-50001`, activity `8` |
+| `quit` | Exit the application |
 
 ## Architecture
 
