@@ -1,8 +1,3 @@
-/*
- * The MIT License (MIT)
- * Copyright (c) 2024 Dajue Qiu
- */
-
 package se.kth.iv1351.teachingalloc.model;
 
 /**
@@ -44,3 +39,4 @@ public interface CourseInstanceDTO {
      */
     int getLayoutVersionNo();
 }
+
