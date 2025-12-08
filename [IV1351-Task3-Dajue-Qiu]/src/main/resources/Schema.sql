@@ -1,6 +1,4 @@
--- All data stored in DB including the '4' limit)
--- Ability to keep multiple versions of course layouts and salaries
--- Cost/hours reports that use the correct version per instance/allocation.
+-- Run in the 'dsp_university' DB created in the previous step.
 
 BEGIN;
 
@@ -124,7 +122,7 @@ CREATE TABLE allocation (
   PRIMARY KEY (employee_id, course_instance_id, activity_id)
 );
 
--- Rule parameter stored IN the DB
+-- Rule stored INSIDE the DB
 CREATE TABLE allocation_rule (
   max_instances_per_period INT NOT NULL CHECK (max_instances_per_period >= 1)
 );
