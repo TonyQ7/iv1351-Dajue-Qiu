@@ -1,8 +1,3 @@
-/*
- * The MIT License (MIT)
- * Copyright (c) 2024 Dajue Qiu
- */
-
 package se.kth.iv1351.teachingalloc.model;
 
 /**
@@ -21,11 +16,9 @@ public class TeachingException extends Exception {
 
     /**
      * Create a new instance thrown because of the specified reason and exception.
-     *
-     * @param reason    Why the exception was thrown.
-     * @param rootCause The exception that caused this exception to be thrown.
      */
     public TeachingException(String reason, Throwable rootCause) {
         super(reason, rootCause);
     }
 }
+
