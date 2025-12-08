@@ -49,6 +49,7 @@ mvn exec:java
 | `newactivity <name> <factor>` | Create new teaching activity |
 | `associate <instance_id> <activity_id> <hours>` | Add planned activity |
 
+## The exact commands I used to generate the sample printout
 | Command | Description |
 |---------|-------------|
 | `list instances 2025` | List all course instances for 2025 |
