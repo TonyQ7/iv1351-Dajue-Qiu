@@ -1,10 +1,3 @@
-/*
- * The MIT License (MIT)
- * Copyright (c) 2024 Dajue Qiu
- *
- * Based on the JDBC Bank example by Leif Lindbäck.
- */
-
 package se.kth.iv1351.teachingalloc.view;
 
 import java.math.BigDecimal;
@@ -20,8 +13,7 @@ import se.kth.iv1351.teachingalloc.model.ActivityAllocationDTO;
 
 /**
  * Reads and interprets user commands. This command interpreter is blocking, the
- * user
- * interface does not react to user input while a command is being executed.
+ * user interface does not react to user input while a command is being executed.
  */
 public class BlockingInterpreter {
     private static final String PROMPT = "> ";
@@ -32,8 +24,6 @@ public class BlockingInterpreter {
     /**
      * Creates a new instance that will use the specified controller for all
      * operations.
-     * 
-     * @param ctrl The controller used by this instance.
      */
     public BlockingInterpreter(Controller ctrl) {
         this.ctrl = ctrl;
@@ -48,8 +38,7 @@ public class BlockingInterpreter {
 
     /**
      * Interprets and performs user commands. This method will not return until the
-     * UI has been stopped. The UI is stopped either when the user gives the
-     * "quit" command, or when the method <code>stop()</code> is called.
+     * UI has been stopped.
      */
     public void handleCmds() {
         keepReceivingCmds = true;
@@ -124,9 +113,6 @@ public class BlockingInterpreter {
     /**
      * Handles the 'list' command with various sub-commands.
      * Sub-commands: instances, activities, allocations, teacher.
-     *
-     * @param cmdLine The parsed command line containing sub-command and parameters.
-     * @throws Exception If database access fails.
      */
     private void handleList(CmdLine cmdLine) throws Exception {
         String subCmd = cmdLine.getParameter(0);
@@ -209,10 +195,6 @@ public class BlockingInterpreter {
 
     /**
      * Prints a formatted table of teaching allocations.
-     *
-     * @param allocations The list of allocations to display.
-     * @param context     A description of what the allocations are for (e.g.,
-     *                    "Instance 2025-50001").
      */
     private void printAllocations(List<? extends TeachingAllocationDTO> allocations, String context) {
         System.out.println("\nAllocations for " + context + ":");
@@ -236,9 +218,6 @@ public class BlockingInterpreter {
      * instance.
      * Shows both planned cost (based on planned hours) and actual cost (based on
      * allocations).
-     *
-     * @param cmdLine The parsed command line containing the instance ID.
-     * @throws Exception If database access fails or instance not found.
      */
     private void handleCost(CmdLine cmdLine) throws Exception {
         String instanceId = cmdLine.getParameter(0);
@@ -266,9 +245,6 @@ public class BlockingInterpreter {
      * Handles the 'increase' command to increase the student count for a course
      * instance.
      * After increasing, displays the new planned cost.
-     *
-     * @param cmdLine The parsed command line containing instance ID and count.
-     * @throws Exception If database access fails or validation fails.
      */
     private void handleIncrease(CmdLine cmdLine) throws Exception {
         if (cmdLine.getParamCount() < 2) {
@@ -290,11 +266,6 @@ public class BlockingInterpreter {
     /**
      * Handles the 'allocate' command to allocate teaching hours to an employee.
      * Validates against the allocation limit defined in the database.
-     *
-     * @param cmdLine The parsed command line containing employee ID, instance ID,
-     *                activity ID, and hours.
-     * @throws Exception If allocation fails due to limit exceeded or database
-     *                   error.
      */
     private void handleAllocate(CmdLine cmdLine) throws Exception {
         if (cmdLine.getParamCount() < 4) {
@@ -336,9 +307,6 @@ public class BlockingInterpreter {
     /**
      * Handles the 'newactivity' command to create a new teaching activity type.
      * New activities are non-derived by default.
-     *
-     * @param cmdLine The parsed command line containing activity name and factor.
-     * @throws Exception If database access fails or activity already exists.
      */
     private void handleNewActivity(CmdLine cmdLine) throws Exception {
         if (cmdLine.getParamCount() < 2) {
@@ -357,10 +325,6 @@ public class BlockingInterpreter {
      * Handles the 'associate' command to add a planned activity to a course
      * instance.
      * Derived activities cannot be associated (they are computed automatically).
-     *
-     * @param cmdLine The parsed command line containing instance ID, activity ID,
-     *                and planned hours.
-     * @throws Exception If activity is derived or database access fails.
      */
     private void handleAssociate(CmdLine cmdLine) throws Exception {
         if (cmdLine.getParamCount() < 3) {
@@ -380,9 +344,6 @@ public class BlockingInterpreter {
      * Handles the 'showactivity' command for Task A requirement 4.
      * Displays all allocations for a specific activity (e.g., Exercise) with
      * extended details including teacher name, course name, year, and period.
-     *
-     * @param cmdLine The parsed command line containing the activity name.
-     * @throws Exception If database access fails.
      */
     private void handleShowActivity(CmdLine cmdLine) throws Exception {
         String activityName = cmdLine.getParameter(0);
@@ -421,10 +382,6 @@ public class BlockingInterpreter {
 
     /**
      * Truncates a string to a maximum length for display formatting.
-     *
-     * @param s      The string to truncate (may be null).
-     * @param maxLen The maximum allowed length.
-     * @return The truncated string, or empty string if input is null.
      */
     private String truncate(String s, int maxLen) {
         if (s == null)
@@ -437,11 +394,10 @@ public class BlockingInterpreter {
     /**
      * Reads the next line of user input from the console.
      * Displays the command prompt before reading.
-     *
-     * @return The line entered by the user.
      */
     private String readNextLine() {
         System.out.print(PROMPT);
         return console.nextLine();
     }
 }
+
