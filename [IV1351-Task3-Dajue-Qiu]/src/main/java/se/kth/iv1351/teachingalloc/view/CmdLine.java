@@ -1,15 +1,7 @@
-/*
- * The MIT License (MIT)
- * Copyright (c) 2024 Dajue Qiu
- * 
- * Based on the JDBC Bank example by Leif Lindbäck.
- */
-
 package se.kth.iv1351.teachingalloc.view;
 
 /**
- * One line of user input, which should be a command and parameters associated
- * with that command (if any).
+ * One line of user input, which should be a command and parameters associated with that command (if any).
  */
 class CmdLine {
     private static final String PARAM_DELIMETER = " ";
@@ -19,8 +11,6 @@ class CmdLine {
 
     /**
      * Creates a new instance representing the specified line.
-     *
-     * @param enteredLine A line that was entered by the user.
      */
     CmdLine(String enteredLine) {
         this.enteredLine = enteredLine;
@@ -45,10 +35,6 @@ class CmdLine {
     /**
      * Returns the parameter with the specified index. The first parameter has index
      * zero. Parameters are separated by a blank character (" ").
-     *
-     * @param index The index of the searched parameter.
-     * @return The parameter with the specified index, or <code>null</code> if there
-     *         is no parameter with that index.
      */
     String getParameter(int index) {
         if (params == null) {
@@ -115,3 +101,4 @@ class CmdLine {
         return withoutCmd.trim();
     }
 }
+
